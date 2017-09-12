@@ -5,11 +5,12 @@
 
 #define initialLength 400000
 
-int inFromFile(char* str, FILE* file)
+char* inFromFile(FILE* file)
 {
     char temp = fgetc(file);
     int i = 0;
     int ILMultiplier = 0;
+    char* str = calloc(initialLength+1, sizeof(char));
 
     while(!feof(file))
     {
@@ -17,26 +18,20 @@ int inFromFile(char* str, FILE* file)
         i++;
         temp = fgetc(file);
 
-            // Here's a trial of expanding str with
-            // + initialLength elements.
-            // However, newStr's calloc is freed after
-            // the end of cycle.
-
         if (i == initialLength)
         {
             i = 0;
             ILMultiplier++;
 
-            char* newStr = calloc(initialLength*(ILMultiplier + 1),
+            char* newStr = calloc(initialLength*(ILMultiplier + 1) + 1,
                                   sizeof(char));
             strcat(newStr, str);
             free(str);
             str = newStr;
-            newStr = "";
         }
 
     }
-    return 0;
+    return str;
 }
 
 int stringsIn(const char* txt)
@@ -338,10 +333,7 @@ int main()
     input = fopen("input.txt", "r");
     output = fopen("output.txt", "w");
 
-    char* initialStr = calloc(initialLength, sizeof(char));
-
-    inFromFile(initialStr, input);
-
+    char* initialStr =  inFromFile(input);
 
     int nStrings = stringsIn(initialStr);
 
