@@ -1,0 +1,13 @@
+char * inFromFile(FILE* file)
+{
+    fseek(file, 0, SEEK_END);
+    long strLength = ftell(file);
+
+    fseek(file, 0, SEEK_SET);
+
+    char *str = calloc(strLength, sizeof(char));
+
+    fread(str, sizeof(char), strLength, file);
+
+    return str;
+}
