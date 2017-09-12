@@ -216,19 +216,16 @@ int checkEndAlph(const char* str1, const char* str2, int str1char, int str2char)
     }
 }
 
-/*int swapStr(char* str1, char* str2)
+int swapStr(char** str1, char** str2)
 {
-    char* temp = calloc(50, sizeof(char));
-    printf("\n\n%s\n%s\n%s\n\n", str1, temp, str2);
-    temp = str1;
-    str1 = str2;
-    str2 = temp;
-    printf("\n\n%s\n%s\n%s\n\n", str1, temp, str2);
-    free(temp);
-    return 0;
-}*/
+    char* temp = *str1;
+    *str1 = *str2;
+    *str2 = temp;
 
-int swapStr(char** str, int firstItem, int secondItem)
+    return 0;
+}
+
+/*int swapStr(char** str, int firstItem, int secondItem)
 {
     char *temp = str[firstItem];
     str[firstItem] = str[secondItem];
@@ -237,7 +234,7 @@ int swapStr(char** str, int firstItem, int secondItem)
     temp = "";
     free("temp");
     return 0;
-}
+}*/
 
 int outStrArray(char** s, int nStrings, FILE* file)
 {
@@ -267,7 +264,7 @@ void alphSort (char** s, int from, int to)
         while (checkAlph(s[j], marked, firstLetterNumber(s[j]), firstLetterNumber(marked))) j--;
         if (i<=j)
         {
-            swapStr(s, i, j);
+            swapStr(&s[i], &s[j]);
             i ++;
             j --;
         }
@@ -311,7 +308,7 @@ void endSort (char** s, int from, int to)
 
         if (i<=j)
         {
-            swapStr(s, i, j);
+            swapStr(&s[i], &s[j]);
             i ++;
             j --;
         }
