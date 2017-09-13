@@ -1,13 +1,23 @@
 char * inFromFile(FILE* file)
 {
+    clearerr (file);
+    
+    long prevPos = ftell(file);
+    
     fseek(file, 0, SEEK_END);
     long strLength = ftell(file);
 
-    fseek(file, 0, SEEK_SET);
+    fseek(file, prevPos, SEEK_SET);
 
-    char *str = calloc(strLength, sizeof(char));
+    char *str = calloc(strLength + 1, sizeof(*str));
 
     fread(str, sizeof(char), strLength, file);
+    
+    if (ferror (file))
+        {
+        free (str);
+        return NULL;
+        }
 
     return str;
 }
