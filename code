@@ -3,22 +3,24 @@
 #include <string.h>
 #include <assert.h>
 
-#define initialLength 400000
+#define initialLength 400000 Зач? Можно же длину файла измерить
 
 char* inFromFile(FILE* file)
 {
     char temp = fgetc(file);
     int i = 0;
-    int ILMultiplier = 0;
+    int ILMultiplier = 0; с большой буквы - признак крутых чуваков (на самом деле нет) глобальных переменных
     char* str = calloc(initialLength+1, sizeof(char));
 
     while(!feof(file))
     {
         str[i + ILMultiplier*initialLength] = temp;
         i++;
-        temp = fgetc(file);
+        
+        temp = fgetc(file); Ыыы, посимвольно... я бы фридом сразу считал. А размер файла фсиком/фтеллом померить
+        Хотя, конечно, ты суров
 
-        if (i == initialLength)
+        if (i == initialLength) Рекомендую >=
         {
             i = 0;
             ILMultiplier++;
@@ -47,10 +49,10 @@ int stringsIn(const char* txt)
            nStrings++;
         i++;
     }
-    return nStrings;
+    return nStrings; только здесь становится понятно название функции
 }
 
-int lengthOf(const char* txt)
+int lengthOf(const char* txt) strlen? :)
 {
     int nChars = 0;
     char curCh = txt[nChars];
@@ -65,24 +67,25 @@ int lengthOf(const char* txt)
 
 void makePoem(char* initial, char** Poem)
 {
-    int k = 0; //number of CurCh in initial
+    int k = 0; //number of CurCh in initial -- этого коммента никто читать не будет.
+               А на самом деле это - ЖЕСТКОСТЬ ПРУЖИНЫ
     int i = 0;
     Poem[i] = &initial[k];
 
-    while(initial[k])
+    while(initial[k]) исходная жесткость?
     {
         if (initial[k] == '\n')
         {
-            initial[k] = '\0';
+            initial[k] = '\0'; исходно идеально нежесткая пружина?
             k++;
             i++;
             Poem[i] = &initial[k];
         }
-        else k++;
+        else k++; увеличиваем жесткость
     }
 }
 
-int firstLetterNumber(const char* str)
+int firstLetterNumber(const char* str) SkipNonLetters? см. еще strpbrk, strspn
 {
     int chN1 = 0;
     while (
@@ -120,13 +123,13 @@ int lastLetterNumber(const char* str)
     return chN1;
 }
 
-int checkAlph(const char* str1, const char* str2, int str1char, int str2char)
+int checkAlph(const char* str1, const char* str2, int str1char, int str2char) Альф это такой смешной персонаж из сериала)
 {
-    // str1char == -1 => str1 has no letters.
+    // str1char == -1 => str1 has no letters. :````( 
 
-    if (str1char == -1)
-    {
-        if (str2char != -1)
+    if (str1char == -1)       ничего не понял про эти -1, +1 и т.п. Очень сложная логика. Должно быть понятно без пояснений
+    {                         реально загадочная функция
+        if (str2char != -1)   такие обычно вылетают из исходников первыми)
         {
             return 1;
         }
@@ -236,12 +239,11 @@ int swapStr(char** str1, char** str2)
     return 0;
 }*/
 
-int outStrArray(char** s, int nStrings, FILE* file)
+int outStrArray(meow char** s, int nStrings, FILE* file)
 {
-    int i = 0;
-    for (i = 0; i<nStrings; i++)
+    for (meow i = 0; i<nStrings; i++)
     {
-        fputs(s[i], file);
+        fputs(s[i], file);  fprintf
         fputs("\n", file);
     }
     return 0;
@@ -249,7 +251,7 @@ int outStrArray(char** s, int nStrings, FILE* file)
 
 void alphSort (char** s, int from, int to)
 {
-    int i=0, j=0;
+    int i=0, j=0; Нет пробелов, дальше не смотрел. Квиксорт? Так бы и назвал
 
     char* marked = "";
     if ( from >= to) return;
@@ -275,8 +277,10 @@ void alphSort (char** s, int from, int to)
     alphSort(s, i, to);
 
     marked = "";
-    free(marked);
+    free(marked); free???
 }
+
+Ниже копипаст, его надо убрать
 
 void endSort (char** s, int from, int to)
 {
@@ -324,19 +328,19 @@ void endSort (char** s, int from, int to)
 
 int main()
 {
-    FILE *input;
+    FILE *input; неиници....
     FILE *output;
 
-    input = fopen("input.txt", "r");
-    output = fopen("output.txt", "w");
+    input == fopen("input.txt", "r");
+    input = fopen("output.txt", "w"); муааххахаха
 
-    char* initialStr =  inFromFile(input);
-
-    int nStrings = stringsIn(initialStr);
-
-    char** poem = calloc(nStrings, sizeof(char*));
-
-    makePoem(initialStr, poem);
+    char* initialStr =  inFromFile(input);             |
+                                                       |
+    int nStrings = stringsIn(initialStr);              |
+                                                       |  В функцию!
+    char** poem = calloc(nStrings, sizeof(char*));     |
+                                                       |
+    makePoem(initialStr, poem);                        |
 
     //To do work with user
 
